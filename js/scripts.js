@@ -45,7 +45,7 @@ for (var i = 0; i < pokemonList.length; i++) {
 
   //comments on pokemon height
     if(height > 1.0){
-      document.write(' - that\'s pretty tall') + '</p>';
+      document.write(' - Yes\' I am very tall') + '</p>';
     }
 
 }
