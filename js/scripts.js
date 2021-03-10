@@ -20,10 +20,52 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
 
+  function addListItem(pokemon) {
+    let $listItem = $('<li class="list-group-item"></li>');
+    let $ul = $(".pokeList");
+    let $button = $(
+      '<button type="button" class="button-design btn-primary group-list-item" data-toggle="modal" data-target="#modal-container">' +
+        pokemon.name +
+        "</button>"
+    );
+    $ul.append($listItem);
+    $listItem.append($button);
+
+    $button.on("click", function () {
+      showDetails(pokemon);
+    });
+  }
+
+  function showDetails(item) {
+    $(".modal").innerHTML = "";
+    $(document).on("click", ".group-list-item", function () {
+      let $nameElement = $("<h5>" + item.name + "</h5>");
+      let $heightElement = $("<p>" + "Height: " + item.height + "</p>");
+      let $imageElement = $(
+        '<img src="' + item.imageUrl + '"alt=' + item.name + ">"
+      );
+      let $typesElement = $("<p>" + "Types: " + item.types.join(", ") + "</p>");
+      if (item.types.length === 1) {
+        typesElement = $("<p>" + "Type: " + item.types + "</p>");
+      }
+
+      let $abilitiesElement = $(
+        "<p>" + "Abilities: " + item.abilities.join(", ") + "</p>"
+      );
+      $(".modal-header").html($nameElement);
+      $(".modal-body").html($imageElement);
+      $(".modal-body").append($heightElement);
+      $(".modal-body").append($typesElement);
+      $(".modal-body").append($abilitiesElement);
+      $("#modal").modal("show");
+    });
+  }
+
   return {
     add: add,
-    getAll: getAll
-  };
+    getAll: getAll,
+    addListItem: addListItem
+    };
 })();
 
 pokemonRepository.add({ name: 'Pikachu', height: 5, types:['electric', 'galvanic'] });
